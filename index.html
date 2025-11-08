@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Ultimate Mortal Kombat 3 (240x320) - Play Free</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Play the original Ultimate Mortal Kombat 3 mobile Java game directly in your browser. No download, no emulator.">
+  <style>
+    body{background:#000;margin:0;overflow:hidden;display:flex;flex-direction:column;height:100vh;}
+    canvas{display:block;background:#000;margin:auto;}
+    #controls{position:fixed;bottom:0;left:0;right:0;height:140px;pointer-events:none;z-index:999;}
+    .btn{position:absolute;width:90px;height:90px;background:rgba(255,255,255,0.25);border-radius:50%;pointer-events:auto;display:flex;align-items:center;justify-content:center;color:white;font-weight:bold;font-size:14px;text-shadow:0 0 5px black;}
+  </style>
+</head>
+<body>
+  <canvas id="c"></canvas>
+  <div id="controls">
+    <div class="btn" style="left:20px;bottom:20px;" ontouchstart="k.left=1" ontouchend="k.left=0">◄</div>
+    <div class="btn" style="left:70px;bottom:70px;" ontouchstart="k.up=1" ontouchend="k.up=0">▲</div>
+    <div class="btn" style="left:120px;bottom:20px;" ontouchstart="k.right=1" ontouchend="k.right=0">►</div>
+    <div class="btn" style="right:110px;bottom:35px;background:#c00;" ontouchstart="k.a=1" ontouchend="k.a=0">PUNCH</div>
+    <div class="btn" style="right:20px;bottom:35px;background:#00a;" ontouchstart="k.b=1" ontouchend="k.b=0">KICK</div>
+  </div>
+
+  <script src="umk3.min.js"></script>
+  <script>
+    const k = {up:0,down:0,left:0,right:0,a:0,b:0,start:0};
+    document.addEventListener('keydown', e=>{
+      if(e.key==='ArrowUp') k.up=1;
+      if(e.key==='ArrowDown') k.down=1;
+      if(e.key==='ArrowLeft') k.left=1;
+      if(e.key==='ArrowRight') k.right=1;
+      if(e.key==='z') k.a=1;
+      if(e.key==='x') k.b=1;
+      if(e.key==='Enter') k.start=1;
+    });
+    document.addEventListener('keyup', e=>{
+      if(e.key==='ArrowUp') k.up=0;
+      if(e.key==='ArrowDown') k.down=0;
+      if(e.key==='ArrowLeft') k.left=0;
+      if(e.key==='ArrowRight') k.right=0;
+      if(e.key==='z') k.a=0;
+      if(e.key==='x') k.b=0;
+      if(e.key==='Enter') k.start=0;
+    });
+    window.keys = k;
+  </script>
+</body>
+</html>
