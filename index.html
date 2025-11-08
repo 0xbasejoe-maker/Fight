@@ -5,32 +5,44 @@
   <title>Ultimate Mortal Kombat 3 (240x320) Mobile - Play Free</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <style>
-    body{background:#000;margin:0;overflow:hidden;display:flex;flex-direction:column;height:100vh;}
-    canvas{display:block;margin:auto;background:#000;}
-    #controls{position:fixed;bottom:0;left:0;right:0;height:140px;pointer-events:none;z-index:999;}
-    .btn{position:absolute;width:90px;height:90px;background:rgba(255,255,255,0.25);border-radius:50%;pointer-events:auto;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:bold;font-size:14px;}
+    body{background:#000;margin:0;overflow:hidden;height:100vh;display:flex;flex-direction:column;}
+    #game{margin:auto;background:#000;}
+    #controls{position:fixed;bottom:0;left:0;right:0;height:160px;pointer-events:none;z-index:999;}
+    .btn{position:absolute;width:90px;height:90px;background:rgba(255,255,255,0.3);border:4px solid #fff;border-radius:50%;pointer-events:auto;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:bold;font-size:16px;box-shadow:0 0 20px #000;}
   </style>
 </head>
 <body>
-  <canvas id="canvas"></canvas>
+  <div id="game"></div>
   <div id="controls">
-    <div class="btn" style="left:20px;bottom:20px;" ontouchstart="keyDown('LEFT')" ontouchend="keyUp('LEFT')">◄</div>
-    <div class="btn" style="left:70px;bottom:70px;" ontouchstart="keyDown('UP')" ontouchend="keyUp('UP')">▲</div>
-    <div class="btn" style="left:120px;bottom:20px;" ontouchstart="keyDown('RIGHT')" ontouchend="keyUp('RIGHT')">►</div>
-    <div class="btn" style="left:70px;bottom:20px;" ontouchstart="keyDown('DOWN')" ontouchend="keyUp('DOWN')">▼</div>
-    <div class="btn" style="right:110px;bottom:35px;background:#c00;" ontouchstart="keyDown('FIRE')" ontouchend="keyUp('FIRE')">PUNCH</div>
-    <div class="btn" style="right:20px;bottom:35px;background:#00a;" ontouchstart="keyDown('SOFT')" ontouchend="keyUp('SOFT')">KICK</div>
+    <div class="btn" style="left:20px;bottom:20px;"   ontouchstart="k(37)" ontouchend="u()" onmousedown="k(37)" onmouseup="u()">◄</div>
+    <div class="btn" style="left:70px;bottom:70px;"   ontouchstart="k(38)" ontouchend="u()" onmousedown="k(38)" onmouseup="u()">▲</div>
+    <div class="btn" style="left:120px;bottom:20px;"  ontouchstart="k(39)" ontouchend="u()" onmousedown="k(39)" onmouseup="u()">►</div>
+    <div class="btn" style="left:70px;bottom:20px;"   ontouchstart="k(40)" ontouchend="u()" onmousedown="k(40)" onmouseup="u()">▼</div>
+    <div class="btn" style="right:110px;bottom:35px;background:#c00;" ontouchstart="k(90)" ontouchend="u()" onmousedown="k(90)" onmouseup="u()">PUNCH</div>
+    <div class="btn" style="right:20px;bottom:35px;background:#00a;"  ontouchstart="k(88)" ontouchend="u()" onmousedown="k(88)" onmouseup="u()">KICK</div>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/gh/gerardog/gwt-gradle-plugin@ejek-runtime/examples/libfreej2me.js"></script>
+  <script src="https://zb3.github.io/freej2me-web/freej2me.js"></script>
   <script>
-    const jarUrl = "https://files.catbox.moe/0j1q2v.jar"; // Direct original 528 KB JAR (exact mobiles24 version)
-    const cfg = { 
-      w: 240, h: 320, 
-      args: ["-jar", jarUrl],
-      onLoad: () => console.log("UMK3 Loaded!")
-    };
-    libfreej2me(cfg);
+    const jar = "https://files.catbox.moe/0j1q2v.jar";
+    new FreeJ2ME({
+      jar: jar,
+      width: 240,
+      height: 320,
+      container: document.getElementById('game'),
+      args: ["-width", "240", "-height", "320"]
+    });
 
-    function keyDown(k) { window.freej2me_keyDown(k); }
-    function key
+    function k(code) { 
+      document.dispatchEvent(new KeyboardEvent('keydown', {keyCode: code}));
+    }
+    function u() { 
+      document.dispatchEvent(new KeyboardEvent('keyup'));
+    }
+
+    document.addEventListener('keydown', e => {
+      if ([37,38,39,40,90,88].includes(e.keyCode)) e.preventDefault();
+    });
+  </script>
+</body>
+</html>
